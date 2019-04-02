@@ -1,0 +1,28 @@
+.pc-store {
+    background-color: #85C1E9;
+}
+
+.text-pcstore {
+    color: #85C1E9;
+}
+
+.hr-2 {
+    height: 2px;
+}
+
+textarea {
+    resize: none;
+}
+
+
+.index-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 1.5rem 3rem;
+}
+
+.pop-up {
+    display: none;
+}
+

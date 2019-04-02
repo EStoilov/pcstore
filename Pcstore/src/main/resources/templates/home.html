@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <th:block th:include="~{fragments/user-navbar}"></th:block>
+    <hr class="pc-store hr-2"/>
+
+    <div class="row mb-4 index-container">
+        <th:block th:each="category: ${categories}" >
+            <div class="print-scheduled pc-store rounded">
+                <h5 class="text-center text-white font-weight-bold py-3 mt-3" th:text="${category.name}"></h5>
+                <hr class="bg-white">
+                <button type="button"  class="btn btn-primary d-flex justify-content-center active" data-toggle="modal"
+                        th:href="@{/categories/{name}(name=${category.name})}" th:text="|Go to ${category.name}"|></button>
+            </div>
+        </th:block>
+
+    </div>
+
+    <hr class="pc-store hr-2"/>
+</div>
+
+<th:block th:include="~{fragments/footer}"></th:block>
+</body>
+</html>

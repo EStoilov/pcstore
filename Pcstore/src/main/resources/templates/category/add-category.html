@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <th:block th:include="~{fragments/user-navbar}"></th:block>
+    <hr class="pc-store hr-2"/>
+    
+        <h1 class="text-center">Add Category</h1>
+        <hr class="hr-2 bg-dark w-25">
+        <form id="add-category-form" class="form w-25 mx-auto" th:action="@{/categories/add}" method="post" enctype="multipart/form-data">
+           
+            <div class="form-group">
+                <label for="add-category-name" class="font-weight-bold">Name</label>
+                <input type="text" class="form-control text-center" id="add-category-name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="add-product-description" class="font-weight-bold">Description</label>
+                <textarea name="description" id="add-product-description" cols="41" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="add-product-image" class="font-weight-bold">Image</label>
+                <input type="file" class="form-control-file" id="add-product-image" name="image">
+            </div>
+            <hr class="hr-2 bg-dark">
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-success">Add Category</button>
+            </div>
+        </form>
+    <hr class="pc-store hr-2"/>
+</div>
+
+<th:block th:include="~{fragments/footer}"></th:block>
+</body>
+</html>
