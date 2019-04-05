@@ -43,4 +43,12 @@ public class CategoryServiceImpl implements CategoryService {
         
         return this.modelMapper.map(this.categoryRepository.saveAndFlush(category), CategoryServiceModel.class);
     }
+
+    @Override
+    public CategoryServiceModel findCategoryById(String id) {
+        Category category = this.categoryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException());
+
+        return this.modelMapper.map(category, CategoryServiceModel.class);
+    }
 }

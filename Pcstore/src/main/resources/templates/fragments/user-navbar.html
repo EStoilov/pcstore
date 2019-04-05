@@ -40,24 +40,13 @@
                         </div>
                     </li>
                 </th:block>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-white active" th:href="@{/categories/laptops}">Laptops</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-white active" th:href="@{/categories/pc}">Pc</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-white active" th:href="@{/categories/monitors}">Monitors</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-white active" th:href="@{/categories/tablets}">Tablets</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-white active" th:href="@{/categories/printers}">Printers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-white active" th:href="@{/categories/software}">Software</a>
-                </li>
+                
+                <th:block th:each="category: ${navCategories}">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-white active " th:href="@{/categories/{name}(id=${category.name})}" th:text="${category.name}"></a>
+                    </li>
+                </th:block>
+                
                 <li class="nav-item">
                     <a class="nav-link nav-link-white active" th:href="@{/order/user}">Cart</a>
                 </li>
@@ -66,7 +55,7 @@
                 </li>
                 <li class="nav-item">
                     <form action="/logout?login" method="post"><input type="hidden" name="_csrf">
-                        <button class="logout-button nav-link">Logout</button>
+                        <button class="btn btn-outline-dark">Logout</button>
                     </form>
                 </li>
             </ul>

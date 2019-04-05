@@ -3,8 +3,10 @@ package com.softuni.pcstore.web.controllers;
 import com.softuni.pcstore.domain.models.binding.AddCategoryBindingModel;
 import com.softuni.pcstore.domain.models.service.CategoryServiceModel;
 import com.softuni.pcstore.domain.models.views.CategoryHomeViewModel;
+import com.softuni.pcstore.domain.models.views.CategoryViewModel;
 import com.softuni.pcstore.service.CategoryService;
 import com.softuni.pcstore.service.CloudinaryService;
+import com.softuni.pcstore.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,7 +27,7 @@ public class CategoryController extends BaseController {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CategoryController(CategoryService categoryService, 
+    public CategoryController(CategoryService categoryService,
                               CloudinaryService cloudinaryService,
                               ModelMapper modelMapper) {
         this.categoryService = categoryService;
@@ -69,8 +71,22 @@ public class CategoryController extends BaseController {
     
     @GetMapping("/{name}")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public ModelAndView findCurrentCategory(@PathVariable String name){
+    public ModelAndView findCurrentCategory(@PathVariable String name, ModelAndView modelAndView){
         
+        CategoryServiceModel categoryServiceModel = 
+                this.categoryService.findCategoryByName(name);
+        
+        return view("/category/category-all-products", modelAndView);
+    }
+
+    @GetMapping("/fetch")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    @ResponseBody
+    public List<CategoryViewModel> fetchCategories() {
+        return this.categoryService.findAllCategories()
+                .stream()
+                .map(c -> this.modelMapper.map(c, CategoryViewModel.class))
+                .collect(Collectors.toList());
     }
         
 }

@@ -2,14 +2,17 @@ package com.softuni.pcstore.web.controllers;
 
 import com.softuni.pcstore.domain.models.views.CategoryHomeDetailsViewModel;
 import com.softuni.pcstore.domain.models.views.CategoryHomeViewModel;
+import com.softuni.pcstore.domain.models.views.CategoryNavbarViewModel;
 import com.softuni.pcstore.service.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,8 +43,10 @@ public class HomeController extends BaseController {
 
     @GetMapping("/home")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView home(ModelAndView modelAndView){
+    public ModelAndView home(ModelAndView modelAndView, Principal principal){
         //model.addAttribute("title", "Welcome");
+        
+        String username = principal.getName();
         List<CategoryHomeViewModel> categories = this.categoryService
                 .findAllCategories()
                 .stream()
@@ -50,9 +55,11 @@ public class HomeController extends BaseController {
 
         
         modelAndView.addObject("categories", categories);
+        modelAndView.addObject("username", username);
         return view("home", modelAndView);
         
     }
+    
     
     
 //    @RequestMapping("/person/{id}")

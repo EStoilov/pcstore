@@ -9,7 +9,7 @@ public class CategoryServiceModel extends BaseServiceModel{
     private String name;
     private String description;
     private String image;
-    private List<Product> products;
+    private List<ProductServiceModel> products;
 
     public CategoryServiceModel() {
     }
@@ -38,11 +38,11 @@ public class CategoryServiceModel extends BaseServiceModel{
         this.image = image;
     }
 
-    public List<Product> getProducts() {
+    public List<ProductServiceModel> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<ProductServiceModel> products) {
         this.products = products;
     }
 }

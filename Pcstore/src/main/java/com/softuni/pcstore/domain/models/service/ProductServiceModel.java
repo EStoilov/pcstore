@@ -1,26 +1,18 @@
-package com.softuni.pcstore.domain.entities;
+package com.softuni.pcstore.domain.models.service;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.DecimalMin;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.math.BigDecimal;
-
-@Entity
-@Table(name = "products")
-public class Product extends BaseEntity{
-    
+public class ProductServiceModel extends BaseServiceModel {
     private String name;
     private String description;
     private BigDecimal price;
-    private Category category;
+    private CategoryServiceModel category;
     private String image;
 
-    public Product() {
+    public ProductServiceModel() {
     }
 
-    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -29,7 +21,6 @@ public class Product extends BaseEntity{
         this.name = name;
     }
 
-    @Column(name = "description",columnDefinition = "text", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -38,8 +29,6 @@ public class Product extends BaseEntity{
         this.description = description;
     }
 
-    @Column(name = "price", nullable = false)
-    @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return price;
     }
@@ -48,16 +37,14 @@ public class Product extends BaseEntity{
         this.price = price;
     }
 
-    @ManyToOne(targetEntity = Category.class)
-    public Category getCategory() {
+    public CategoryServiceModel getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryServiceModel category) {
         this.category = category;
     }
 
-    @Column(name = "image", nullable = false)
     public String getImage() {
         return image;
     }

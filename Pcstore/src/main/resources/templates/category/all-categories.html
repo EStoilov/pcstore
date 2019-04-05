@@ -15,8 +15,8 @@
         <thead>
         <tr class="row mx-auto">
             
-            <th class="col-md-1 text-center">Name</th>
-            <th class="col-md-2 text-center">Image</th>
+            <th class="col-md-3 text-center">Name</th>
+            <th class="col-md-3 text-center">Image</th>
             <th class="col-md-3 text-center">Actions</th>
         </tr>
         </thead>
@@ -24,8 +24,8 @@
 
         <th:block th:each="category : ${categories}">
             <tr class="row mx-auto">
-                <td class="col-md-1 text-center" th:text="${category.name}"></td>
-                <td class="col-md-2">
+                <td class="col-md-3 text-center" th:text="${category.name}"></td>
+                <td class="col-md-3">
                     <div class="text-center">
                         <img th:src="${category.image}" width="40" height="40" alt="Category">
                     </div>

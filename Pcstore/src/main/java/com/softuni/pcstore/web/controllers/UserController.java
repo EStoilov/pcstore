@@ -58,7 +58,7 @@ public class UserController extends  BaseController{
 
     @GetMapping("/login")
     @PreAuthorize("isAnonymous()")
-    public ModelAndView login() {
+    public ModelAndView loginConfirm() {
         return view("login");
     }
 }
