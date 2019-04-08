@@ -30,34 +30,30 @@ public class HomeController extends BaseController {
 
     @GetMapping("/")
     public ModelAndView index(ModelAndView modelAndView){
-        //model.addAttribute("title", "Welcome");
         List<CategoryHomeViewModel> categories = this.categoryService
                 .findAllCategories()
                 .stream()
                 .map(c -> this.modelMapper.map(c, CategoryHomeViewModel.class))
                 .collect(Collectors.toList());
-
         modelAndView.addObject("categories", categories);
+        
         return view("index", modelAndView);
     }
 
     @GetMapping("/home")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView home(ModelAndView modelAndView, Principal principal){
-        //model.addAttribute("title", "Welcome");
-        
         String username = principal.getName();
         List<CategoryHomeViewModel> categories = this.categoryService
                 .findAllCategories()
                 .stream()
                 .map(c -> this.modelMapper.map(c, CategoryHomeViewModel.class))
                 .collect(Collectors.toList());
-
         
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("username", username);
-        return view("home", modelAndView);
         
+        return view("home", modelAndView);
     }
     
     

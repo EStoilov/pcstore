@@ -2,6 +2,7 @@ package com.softuni.pcstore.web.controllers;
 
 import com.softuni.pcstore.domain.models.binding.AddCategoryBindingModel;
 import com.softuni.pcstore.domain.models.service.CategoryServiceModel;
+import com.softuni.pcstore.domain.models.views.CategoryHomeDetailsViewModel;
 import com.softuni.pcstore.domain.models.views.CategoryHomeViewModel;
 import com.softuni.pcstore.domain.models.views.CategoryViewModel;
 import com.softuni.pcstore.service.CategoryService;
@@ -44,13 +45,11 @@ public class CategoryController extends BaseController {
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView addCategoryConfirm(@ModelAttribute AddCategoryBindingModel addCategoryBindingModel) throws IOException {
-        
         CategoryServiceModel categoryServiceModel  = 
                 this.modelMapper.map(addCategoryBindingModel, CategoryServiceModel.class);
         categoryServiceModel.setImage(
                 this.cloudinaryService.uploadImage(addCategoryBindingModel.getImage())
         );
-        
         this.categoryService.addCategory(categoryServiceModel);
         
         return redirect("/home"); 
@@ -75,7 +74,7 @@ public class CategoryController extends BaseController {
         
         CategoryServiceModel categoryServiceModel = 
                 this.categoryService.findCategoryByName(name);
-        
+                                     //TODO finish the logic
         return view("/category/category-all-products", modelAndView);
     }
 
@@ -88,5 +87,38 @@ public class CategoryController extends BaseController {
                 .map(c -> this.modelMapper.map(c, CategoryViewModel.class))
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView editCategory(@PathVariable String id, ModelAndView modelAndView){
+        CategoryHomeDetailsViewModel viewModel = 
+                this.modelMapper.map(this.categoryService.findCategoryById(id),CategoryHomeDetailsViewModel.class);
+        modelAndView.addObject("model", viewModel);
         
+        return view("/category/edit-category", modelAndView);
+    }
+
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView editCategoryConfirm(@PathVariable String id, @ModelAttribute CategoryHomeDetailsViewModel categoryHomeDetailsViewModel){
+        this.categoryService.editCategory(id, this.modelMapper.map(categoryHomeDetailsViewModel, CategoryServiceModel.class));
+        return redirect("/categories/all");
+    }
+    
+    @GetMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView deleteCategory(@PathVariable String id, ModelAndView modelAndView){
+        CategoryHomeDetailsViewModel viewModel =
+                this.modelMapper.map(this.categoryService.findCategoryById(id),CategoryHomeDetailsViewModel.class);
+        modelAndView.addObject("model", viewModel);
+
+        return view("/category/delete-category", modelAndView);
+    }
+
+    @PostMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView deleteCategoryConfirm(@PathVariable String id, @ModelAttribute CategoryHomeDetailsViewModel categoryHomeDetailsViewModel){
+        this.categoryService.deleteCategory(id, this.modelMapper.map(categoryHomeDetailsViewModel, CategoryServiceModel.class));
+        return redirect("/categories/all");
+    }
 }

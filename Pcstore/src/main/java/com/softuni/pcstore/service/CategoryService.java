@@ -12,4 +12,9 @@ public interface CategoryService {
     CategoryServiceModel findCategoryById(String id);
 
     CategoryServiceModel addCategory(CategoryServiceModel categoryServiceModel);
+
+    CategoryServiceModel editCategory(String id, CategoryServiceModel categoryServiceModel);
+    
+    CategoryServiceModel deleteCategory(String id, CategoryServiceModel categoryServiceModel);
+    
 }

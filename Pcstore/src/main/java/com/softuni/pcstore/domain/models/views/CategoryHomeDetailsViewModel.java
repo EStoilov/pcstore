@@ -1,6 +1,7 @@
 package com.softuni.pcstore.domain.models.views;
 
 public class CategoryHomeDetailsViewModel {
+    
     private String id;
     private String name;
     private String description;

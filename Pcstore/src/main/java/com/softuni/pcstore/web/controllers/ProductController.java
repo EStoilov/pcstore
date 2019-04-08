@@ -38,7 +38,7 @@ public class ProductController extends BaseController {
     @GetMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView addProduct() {
-        return super.view("product/add-product");
+        return view("product/add-product");
     }
 
 
@@ -73,7 +73,7 @@ public class ProductController extends BaseController {
                         .collect(Collectors.toList());
         modelAndView.addObject("products", products );
 
-        return super.view("product/all-products", modelAndView);
+        return view("product/all-products", modelAndView);
     }
 
     @GetMapping("/edit/{id}")

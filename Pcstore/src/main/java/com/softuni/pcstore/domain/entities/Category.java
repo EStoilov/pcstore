@@ -15,7 +15,7 @@ public class Category extends BaseEntity{
     public Category() {
     }
 
-    @Column(name = "name", nullable = false, updatable = false)
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -24,7 +24,7 @@ public class Category extends BaseEntity{
         this.name = name;
     }
 
-    @Column(name = "description", columnDefinition = "text",nullable = false, updatable = false)
+    @Column(name = "description", columnDefinition = "text",nullable = false)
     public String getDescription() {
         return description;
     }
@@ -42,11 +42,7 @@ public class Category extends BaseEntity{
         this.image = image;
     }
 
-    @OneToMany(targetEntity = Product.class)
-    @JoinColumn(
-            name = "category_id",
-            referencedColumnName = "id"
-    )
+    @ManyToMany(mappedBy = "category" ,targetEntity = Product.class, cascade = CascadeType.REMOVE)
     public List<Product> getProducts() {
         return products;
     }
