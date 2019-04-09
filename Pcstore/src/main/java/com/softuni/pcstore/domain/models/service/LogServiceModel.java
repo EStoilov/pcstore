@@ -1,29 +1,37 @@
-package com.softuni.pcstore.domain.entities;
+package com.softuni.pcstore.domain.models.service;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
-@Entity
-@Table(name = "logs")
-public class Log extends BaseEntity{
+public class LogServiceModel {
     
-    private User user;
+    private String id;
+    private String user;
     private String event;
     private LocalDateTime dateTime;
 
-    public Log() {
+    public LogServiceModel() {
     }
 
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "user_id")
-    public User getUser() {
+    public LogServiceModel(String user, String event) {
+        this.user = user;
+        this.event = event;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
-    @Column(name = "event", columnDefinition = "text")
     public String getEvent() {
         return event;
     }
@@ -32,7 +40,6 @@ public class Log extends BaseEntity{
         this.event = event;
     }
 
-    @Column(name = "date_time", nullable = false, updatable = false)
     public LocalDateTime getDateTime() {
         return dateTime;
     }
