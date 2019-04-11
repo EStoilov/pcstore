@@ -8,10 +8,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.net.http.HttpRequest;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,16 +59,12 @@ public class HomeController extends BaseController {
         return view("home", modelAndView);
     }
     
+    @GetMapping("/info")
+    public String info(HttpRequest request){
+
+        int b = 5;
+        return null;
+    }
     
     
-//    @RequestMapping("/person/{id}")
-//    public String popupDetail(@PathVariable("id") String id, ModelMap model){
-//        CategoryHomeDetailsViewModel categoryHomeDetailsViewModel = this.modelMapper.map(this.categoryService.
-//                                find(id),CategoryHomeDetailsViewModel.class);
-//        
-//        model.addAttribute("person", categoryHomeDetailsViewModel);
-//        
-//        return "modal/person :: modalContents";
-//        
-//    }
 }

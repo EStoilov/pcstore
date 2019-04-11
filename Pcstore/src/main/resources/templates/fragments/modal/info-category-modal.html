@@ -1,0 +1,18 @@
+<th:block th:fragment="info-category-modal">
+<div th:id="'info-category-' + ${category.id}" class="modal fade" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" th:text="${category.name}"></h3>
+            </div>
+            <div class="modal-body">
+                <p th:text="${category.description}"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+</th:block>

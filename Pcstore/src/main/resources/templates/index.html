@@ -18,15 +18,24 @@
                     <img th:src="${category.image}" width="40" height="40" alt="Category">
                 </div>
                 <hr class="bg-white">
-                <button type="button"  class="btn btn-success font-weight-bold text-white" data-toggle="modal" data-target="#mymodal" th:value="${category.name}">Info</button>
+                <div>
+                    <a th:id="${category.id}"
+                       class="btn btn-sm btn-warning" href="#"
+                       name="btnAddMore"
+                       data-toggle="modal"
+                       th:attr="data-target='#info-category-'+${category.id }" th:text="${category.name}"></a>
+                    <th:block th:replace="fragments/modal/info-category-modal"></th:block>
+                </div>
+                
             </div>
         </th:block>
-        
+         
     </div>
         
     <hr class="pc-store hr-2"/>
 </div>
 
 <th:block th:include="~{fragments/footer}"></th:block>
+</div>
 </body>
 </html>
