@@ -1,14 +1,14 @@
 package com.softuni.pcstore.domain.models.views;
 
 import java.math.BigDecimal;
-public class ProductAllViewModel {
-    
+public class ProductDetailsViewModel {
     private String id;
     private String name;
+    private String description;
     private BigDecimal price;
     private String image;
 
-    public ProductAllViewModel() {
+    public ProductDetailsViewModel() {
     }
 
     public String getId() {
@@ -25,6 +25,14 @@ public class ProductAllViewModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getPrice() {

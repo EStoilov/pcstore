@@ -5,6 +5,7 @@ import com.softuni.pcstore.domain.models.service.CategoryServiceModel;
 import com.softuni.pcstore.domain.models.views.CategoryHomeDetailsViewModel;
 import com.softuni.pcstore.domain.models.views.CategoryHomeViewModel;
 import com.softuni.pcstore.domain.models.views.CategoryViewModel;
+import com.softuni.pcstore.domain.models.views.ProductDetailsViewModel;
 import com.softuni.pcstore.service.CategoryService;
 import com.softuni.pcstore.service.CloudinaryService;
 import com.softuni.pcstore.service.ProductService;
@@ -121,4 +122,6 @@ public class CategoryController extends BaseController {
         this.categoryService.deleteCategory(id, this.modelMapper.map(categoryHomeDetailsViewModel, CategoryServiceModel.class));
         return redirect("/categories/all");
     }
+
+    
 }

@@ -1,9 +1,12 @@
 package com.softuni.pcstore.web.controllers;
 
 import com.softuni.pcstore.domain.models.binding.AddProductBindingModel;
-import com.softuni.pcstore.domain.models.service.CategoryServiceModel;
+import com.softuni.pcstore.domain.models.binding.EditProductBindingModel;
 import com.softuni.pcstore.domain.models.service.ProductServiceModel;
+import com.softuni.pcstore.domain.models.views.DeleteProductViewModel;
+import com.softuni.pcstore.domain.models.views.EditProductViewModel;
 import com.softuni.pcstore.domain.models.views.ProductAllViewModel;
+import com.softuni.pcstore.domain.models.views.ProductDetailsViewModel;
 import com.softuni.pcstore.service.CategoryService;
 import com.softuni.pcstore.service.CloudinaryService;
 import com.softuni.pcstore.service.ProductService;
@@ -24,14 +27,12 @@ public class ProductController extends BaseController {
     
     private final ProductService productService;
     private final CloudinaryService cloudinaryService;
-    private final CategoryService categoryService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public ProductController(ProductService productService, CloudinaryService cloudinaryService, CategoryService categoryService, ModelMapper modelMapper) {
+    public ProductController(ProductService productService, CloudinaryService cloudinaryService, ModelMapper modelMapper) {
         this.productService = productService;
         this.cloudinaryService = cloudinaryService;
-        this.categoryService = categoryService;
         this.modelMapper = modelMapper;
     }
 
@@ -48,11 +49,8 @@ public class ProductController extends BaseController {
         ProductServiceModel productServiceModel = 
                 this.modelMapper.map(addProductBindingModel, ProductServiceModel.class);
         
-        CategoryServiceModel categoryServiceModel =
-                this.categoryService.findCategoryById(addProductBindingModel.getCategory());
-        productServiceModel.setCategory(categoryServiceModel);
         productServiceModel.setImage(this.cloudinaryService.uploadImage(addProductBindingModel.getImage()));
-        this.productService.createProduct(productServiceModel);
+        this.productService.createProduct(productServiceModel,addProductBindingModel.getCategory());
         
         return redirect("/products/all");
     }
@@ -63,13 +61,8 @@ public class ProductController extends BaseController {
         List<ProductAllViewModel> products =
                 this.productService.findAllProducts()
                         .stream()
-                        .map(p -> {
-                            String categoryName = p.getCategory().getName();
-                            ProductAllViewModel productAllViewModel = this.modelMapper
-                                    .map(p,ProductAllViewModel.class );
-                            productAllViewModel.setCategory(categoryName);
-                            return productAllViewModel;
-                        })
+                        .map(p -> this.modelMapper
+                                    .map(p,ProductAllViewModel.class))
                         .collect(Collectors.toList());
         modelAndView.addObject("products", products );
 
@@ -79,10 +72,45 @@ public class ProductController extends BaseController {
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView editProduct(@PathVariable String id, ModelAndView modelAndView) {
-         AddProductBindingModel addProductBindingModel = 
-                 this.modelMapper.map(this.productService.findProductById(id),AddProductBindingModel.class);
+         EditProductViewModel addProductBindingModel = 
+                 this.modelMapper.map(this.productService.findProductById(id),EditProductViewModel.class);
          modelAndView.addObject("product", addProductBindingModel);
         
          return view("product/edit-product", modelAndView);
+    }
+
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView editProductConfirm(@PathVariable String id, @ModelAttribute EditProductBindingModel model) {
+        this.productService.editProduct(id, this.modelMapper.map(model, ProductServiceModel.class), model.getCategory());
+        
+        return redirect("/products/details/" + id); 
+    }
+
+    @GetMapping("/details/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView details(@PathVariable String id, ModelAndView modelAndView){
+        ProductDetailsViewModel detailsProduct = this.modelMapper.map(
+                this.productService.findProductById(id), ProductDetailsViewModel.class);
+        modelAndView.addObject("product", detailsProduct);
+        return view("product/details-product", modelAndView);
+    }
+
+    @GetMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView deleteProduct(@PathVariable String id, ModelAndView modelAndView) {
+        DeleteProductViewModel deleteProductViewModel =
+                this.modelMapper.map(this.productService.findProductById(id),DeleteProductViewModel.class);
+        modelAndView.addObject("product", deleteProductViewModel);
+
+        return view("product/delete-product", modelAndView);
+    }
+
+    @PostMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView deleteProductConfirm(@PathVariable String id) {
+        this.productService.deleteProduct(id);
+
+        return redirect("/products/all");
     }
 }

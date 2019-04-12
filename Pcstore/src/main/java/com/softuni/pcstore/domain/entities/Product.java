@@ -3,6 +3,7 @@ package com.softuni.pcstore.domain.entities;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,7 +13,7 @@ public class Product extends BaseEntity{
     private String name;
     private String description;
     private BigDecimal price;
-    private Set<Category> category;
+    private List<Category> category;
     private String image;
 
     public Product() {
@@ -58,11 +59,11 @@ public class Product extends BaseEntity{
                     referencedColumnName = "id"
             )
     )
-    public Set<Category> getCategory() {
+    public List<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(Set<Category> category) {
+    public void setCategory(List<Category> category) {
         this.category = category;
     }
 

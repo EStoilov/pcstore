@@ -3,11 +3,12 @@ package com.softuni.pcstore.domain.models.service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.List;
 public class ProductServiceModel extends BaseServiceModel {
     private String name;
     private String description;
     private BigDecimal price;
-    private CategoryServiceModel category;
+    private List<CategoryServiceModel> category;
     private String image;
 
     public ProductServiceModel() {
@@ -37,11 +38,11 @@ public class ProductServiceModel extends BaseServiceModel {
         this.price = price;
     }
 
-    public CategoryServiceModel getCategory() {
+    public List<CategoryServiceModel> getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryServiceModel category) {
+    public void setCategory(List<CategoryServiceModel> category) {
         this.category = category;
     }
 

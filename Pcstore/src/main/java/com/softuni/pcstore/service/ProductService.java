@@ -7,7 +7,12 @@ import java.util.List;
 public interface ProductService {
     List<ProductServiceModel>  findAllProducts();
 
-    ProductServiceModel createProduct(ProductServiceModel productServiceModel);
+    ProductServiceModel createProduct(ProductServiceModel productServiceModel, List<String> categories);
 
     ProductServiceModel findProductById(String id);
+    
+    ProductServiceModel editProduct(String id, ProductServiceModel productServiceModel, List<String> categories);
+    
+    void deleteProduct(String id);
+            
 }

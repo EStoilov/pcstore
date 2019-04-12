@@ -1,18 +1,15 @@
 package com.softuni.pcstore.domain.models.binding;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.math.BigDecimal;
 import java.util.List;
-public class AddProductBindingModel {
+public class EditProductBindingModel {
     
     private String name;
     private String description;
     private BigDecimal price;
     private List<String> category;
-    private MultipartFile image;
 
-    public AddProductBindingModel() {
+    public EditProductBindingModel() {
     }
 
     public String getName() {
@@ -45,13 +42,5 @@ public class AddProductBindingModel {
 
     public void setCategory(List<String> category) {
         this.category = category;
-    }
-
-    public MultipartFile getImage() {
-        return image;
-    }
-
-    public void setImage(MultipartFile image) {
-        this.image = image;
     }
 }
