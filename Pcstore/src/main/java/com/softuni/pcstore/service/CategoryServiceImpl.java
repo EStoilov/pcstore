@@ -3,7 +3,11 @@ package com.softuni.pcstore.service;
 import com.softuni.pcstore.common.Constants;
 import com.softuni.pcstore.domain.entities.Category;
 import com.softuni.pcstore.domain.models.service.CategoryServiceModel;
+import com.softuni.pcstore.domain.models.service.ProductServiceModel;
+import com.softuni.pcstore.domain.models.views.ProductAllViewModel;
+import com.softuni.pcstore.domain.models.views.ProductInCategoryViewModel;
 import com.softuni.pcstore.repository.CategoryRepository;
+import com.softuni.pcstore.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +18,13 @@ import java.util.stream.Collectors;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository, ModelMapper modelMapper) {
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -70,5 +76,17 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryRepository.delete(category);
         
         return this.modelMapper.map(category, CategoryServiceModel.class);
+    }
+
+    @Override
+    public List<ProductServiceModel> findProductByCategoryName(String name) {
+        
+        List<ProductServiceModel> products = this.productRepository.findAll()
+                .stream()
+                .filter(p -> p.getCategory().stream().anyMatch(category -> category.getName().equals(name)))
+                .map(p -> this.modelMapper.map(p, ProductServiceModel.class))
+                .collect(Collectors.toList());
+        
+        return products;
     }
 }

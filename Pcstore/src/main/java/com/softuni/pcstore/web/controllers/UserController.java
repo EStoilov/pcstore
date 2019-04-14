@@ -49,7 +49,7 @@ public class UserController extends  BaseController{
 
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("userRegisterBindingModel", userRegisterBindingModel);
-            return super.view("register", modelAndView);
+            return view("register", modelAndView);
         }
         this.userService.registerUser(this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
         

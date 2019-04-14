@@ -1,6 +1,10 @@
 package com.softuni.pcstore.domain.models.binding;
 
+import com.softuni.pcstore.common.Constants;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class AddCategoryBindingModel {
     private String name;
@@ -10,6 +14,8 @@ public class AddCategoryBindingModel {
     public AddCategoryBindingModel() {
     }
 
+    @NotNull(message = Constants.EXCEPTION_CATEGORY_NAME_NOT_NULL)
+    @NotEmpty(message = Constants.EXCEPTION_CATEGORY_NAME_NOT_EMPTY)
     public String getName() {
         return name;
     }
@@ -18,6 +24,8 @@ public class AddCategoryBindingModel {
         this.name = name;
     }
 
+    @NotNull(message = Constants.EXCEPTION_CATEGORY_DESCRIPTION_NOT_NULL)
+    @NotEmpty(message = Constants.EXCEPTION_CATEGORY_DESCRIPTION_NOT_EMPTY)
     public String getDescription() {
         return description;
     }
@@ -26,6 +34,7 @@ public class AddCategoryBindingModel {
         this.description = description;
     }
 
+    @NotNull(message = Constants.EXCEPTION_CATEGORY_IMAGE_NOT_NULL)
     public MultipartFile getImage() {
         return image;
     }

@@ -2,10 +2,7 @@ package com.softuni.pcstore.web.controllers;
 
 import com.softuni.pcstore.domain.models.binding.AddCategoryBindingModel;
 import com.softuni.pcstore.domain.models.service.CategoryServiceModel;
-import com.softuni.pcstore.domain.models.views.CategoryHomeDetailsViewModel;
-import com.softuni.pcstore.domain.models.views.CategoryHomeViewModel;
-import com.softuni.pcstore.domain.models.views.CategoryViewModel;
-import com.softuni.pcstore.domain.models.views.ProductDetailsViewModel;
+import com.softuni.pcstore.domain.models.views.*;
 import com.softuni.pcstore.service.CategoryService;
 import com.softuni.pcstore.service.CloudinaryService;
 import com.softuni.pcstore.service.ProductService;
@@ -13,9 +10,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,13 +38,20 @@ public class CategoryController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public ModelAndView addCategory() {
+    public ModelAndView addCategory(@ModelAttribute AddCategoryBindingModel addCategoryBindingModel) {
         return view("category/add-category");
     }
     
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public ModelAndView addCategoryConfirm(@ModelAttribute AddCategoryBindingModel addCategoryBindingModel) throws IOException {
+    public ModelAndView addCategoryConfirm(ModelAndView modelAndView,
+                                           @Valid @ModelAttribute AddCategoryBindingModel addCategoryBindingModel,
+                                           BindingResult bindingResult) throws IOException {
+        if(bindingResult.hasErrors()){
+           modelAndView.addObject("addCategoryBindingModel", addCategoryBindingModel);
+           
+           return view("category/add-category", modelAndView);
+        }
         CategoryServiceModel categoryServiceModel  = 
                 this.modelMapper.map(addCategoryBindingModel, CategoryServiceModel.class);
         categoryServiceModel.setImage(
@@ -71,11 +77,16 @@ public class CategoryController extends BaseController {
     
     @GetMapping("/{name}")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public ModelAndView findCurrentCategory(@PathVariable String name, ModelAndView modelAndView){
+    public ModelAndView findProductsCategory(@PathVariable String name, ModelAndView modelAndView){
         
-        CategoryServiceModel categoryServiceModel = 
-                this.categoryService.findCategoryByName(name);
-                                     //TODO finish the logic
+        List<ProductInCategoryViewModel> products = this.categoryService.findProductByCategoryName(name)
+                .stream()
+                .map(p -> this.modelMapper.map(p, ProductInCategoryViewModel.class))
+                .collect(Collectors.toList());
+        
+        modelAndView.addObject("products", products);
+        modelAndView.addObject("category", name);
+        
         return view("/category/category-all-products", modelAndView);
     }
 
@@ -122,6 +133,5 @@ public class CategoryController extends BaseController {
         this.categoryService.deleteCategory(id, this.modelMapper.map(categoryHomeDetailsViewModel, CategoryServiceModel.class));
         return redirect("/categories/all");
     }
-
     
 }

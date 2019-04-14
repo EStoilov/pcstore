@@ -43,7 +43,7 @@
                 
                 <th:block th:each="category: ${navCategories}">
                     <li class="nav-item">
-                        <a class="nav-link nav-link-white active " th:href="@{/categories/{name}(id=${category.name})}" th:text="${category.name}"></a>
+                        <a class="nav-link nav-link-white active " th:href="@{/categories/{name}(name=${category.name})}" th:text="${category.name}"></a>
                     </li>
                 </th:block>
                 

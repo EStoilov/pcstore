@@ -1,5 +1,6 @@
 package com.softuni.pcstore.domain.models.binding;
 
+import com.softuni.pcstore.common.Constants;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,9 +15,9 @@ public class UserRegisterBindingModel {
     public UserRegisterBindingModel() {
     }
 
-    @NotNull(message = "Username cannot be null!")
-    @NotEmpty(message = "Username cannot be empty!")
-    @Length(min = 2, message = "Username must be at least 2 symbols!")
+    @NotNull(message = Constants.EXCEPTION_USERNAME__NOT_NULL)
+    @NotEmpty(message = Constants.EXCEPTION_USERNAME__NOT_EMPTY)
+    @Length(min = 2, message = Constants.EXCEPTION_USERNAME__LENGTH)
     public String getUsername() {
         return username;
     }
@@ -25,9 +26,9 @@ public class UserRegisterBindingModel {
         this.username = username;
     }
 
-    @NotNull(message = "Password cannot be null!")
-    @NotEmpty(message = "Password cannot be empty!")
-    @Length(min = 4, max = 20, message = "Password must be between 4 and 20 symbols!")
+    @NotNull(message = Constants.EXCEPTION_PASSWORD__NOT_NULL)
+    @NotEmpty(message = Constants.EXCEPTION_PASSWORD__NOT_EMPTY)
+    @Length(min = 4, max = 20, message = Constants.EXCEPTION_PASSWORD_LENGTH)
     public String getPassword() {
         return password;
     }
@@ -36,9 +37,9 @@ public class UserRegisterBindingModel {
         this.password = password;
     }
 
-    @NotNull(message = "Confirm password cannot be null!")
-    @NotEmpty(message = "Confirm password cannot be empty!")
-    @Length(min = 4, max = 20, message = "Confirm password must be between 4 and 20 symbols!")
+    @NotNull(message = Constants.EXCEPTION_CONFIRM_PASSWORD__NOT_NULL)
+    @NotEmpty(message = Constants.EXCEPTION_CONFIRM_PASSWORD__NOT_EMPTY)
+    @Length(min = 4, max = 20, message = Constants.EXCEPTION_CONFIRM_PASSWORD_LENGTH)
     public String getConfirmPassword() {
         return confirmPassword;
     }
@@ -47,8 +48,8 @@ public class UserRegisterBindingModel {
         this.confirmPassword = confirmPassword;
     }
 
-    @NotNull(message = "Email cannot be null.")
-    @NotEmpty(message = "Email cannot be empty.")
+    @NotNull(message = Constants.EXCEPTION_EMAIL_NOT_NULL)
+    @NotEmpty(message = Constants.EXCEPTION_EMAIL_NOT_EMPTY)
     public String getEmail() {
         return email;
     }

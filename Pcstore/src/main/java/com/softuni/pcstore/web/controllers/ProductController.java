@@ -7,16 +7,17 @@ import com.softuni.pcstore.domain.models.views.DeleteProductViewModel;
 import com.softuni.pcstore.domain.models.views.EditProductViewModel;
 import com.softuni.pcstore.domain.models.views.ProductAllViewModel;
 import com.softuni.pcstore.domain.models.views.ProductDetailsViewModel;
-import com.softuni.pcstore.service.CategoryService;
 import com.softuni.pcstore.service.CloudinaryService;
 import com.softuni.pcstore.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,17 +39,23 @@ public class ProductController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public ModelAndView addProduct() {
+    public ModelAndView addProduct(@ModelAttribute AddProductBindingModel addProductBindingModel) {
         return view("product/add-product");
     }
 
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public ModelAndView addProductConfirm(@ModelAttribute AddProductBindingModel addProductBindingModel) throws IOException {
+    public ModelAndView addProductConfirm(ModelAndView modelAndView,
+                                          @Valid @ModelAttribute AddProductBindingModel addProductBindingModel,
+                                          BindingResult bindingResult) throws IOException {
+        if(bindingResult.hasErrors()){
+            modelAndView.addObject("addProductBindingModel", addProductBindingModel);
+            
+            return view("product/add-product", modelAndView);
+        }
         ProductServiceModel productServiceModel = 
                 this.modelMapper.map(addProductBindingModel, ProductServiceModel.class);
-        
         productServiceModel.setImage(this.cloudinaryService.uploadImage(addProductBindingModel.getImage()));
         this.productService.createProduct(productServiceModel,addProductBindingModel.getCategory());
         
@@ -93,6 +100,7 @@ public class ProductController extends BaseController {
         ProductDetailsViewModel detailsProduct = this.modelMapper.map(
                 this.productService.findProductById(id), ProductDetailsViewModel.class);
         modelAndView.addObject("product", detailsProduct);
+        
         return view("product/details-product", modelAndView);
     }
 

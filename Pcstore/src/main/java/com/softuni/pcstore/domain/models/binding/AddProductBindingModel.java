@@ -1,7 +1,10 @@
 package com.softuni.pcstore.domain.models.binding;
 
+import com.softuni.pcstore.common.Constants;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 public class AddProductBindingModel {
@@ -15,6 +18,8 @@ public class AddProductBindingModel {
     public AddProductBindingModel() {
     }
 
+    @NotNull(message = Constants.EXCEPTION_PRODUCT_NAME_NOT_NULL)
+    @NotEmpty(message = Constants.EXCEPTION_PRODUCT_NAME_NOT_EMPTY)
     public String getName() {
         return name;
     }
@@ -23,6 +28,8 @@ public class AddProductBindingModel {
         this.name = name;
     }
 
+    @NotNull(message = Constants.EXCEPTION_PRODUCT_DESCRIPTION_NOT_NULL)
+    @NotEmpty(message = Constants.EXCEPTION_PRODUCT_DESCRIPTION_NOT_EMPTY)
     public String getDescription() {
         return description;
     }
@@ -31,6 +38,7 @@ public class AddProductBindingModel {
         this.description = description;
     }
 
+    @NotNull(message = Constants.EXCEPTION_PRODUCT_PRICE_NOT_NULL)
     public BigDecimal getPrice() {
         return price;
     }
@@ -47,6 +55,7 @@ public class AddProductBindingModel {
         this.category = category;
     }
 
+    @NotNull(message = Constants.EXCEPTION_PRODUCT_IMAGE_NOT_NULL)
     public MultipartFile getImage() {
         return image;
     }
