@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,5 +54,45 @@ public class UserServiceImpl implements UserService {
         return this.userRepository
                 .findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(Constants.EXCEPTION_USERNAME_NOT_FOUND));
+    }
+
+    @Override
+    public List<UserServiceModel> findAllUsers() {
+        List<UserServiceModel> users =  this.userRepository.findAll()
+                .stream()
+                .map(u -> this.modelMapper.map(u, UserServiceModel.class))
+                .collect(Collectors.toList());
+        
+        return  users;
+    }
+
+    @Override
+    public void setUserRole(String id, String role) {
+        UserServiceModel user = this.modelMapper.map(this.userRepository
+                .findById(id).orElseThrow(()-> new IllegalArgumentException(Constants.EXCEPTION_NOT_FOUND)), UserServiceModel.class);
+
+        user.getAuthorities().clear();
+
+        switch (role) {
+            case "user":
+                user.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
+                break;
+            case "moderator":
+                user.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
+                user.getAuthorities().add(this.roleService.findByAuthority("ROLE_MODERATOR"));
+                break;
+            case "admin":
+                user.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
+                user.getAuthorities().add(this.roleService.findByAuthority("ROLE_MODERATOR"));
+                user.getAuthorities().add(this.roleService.findByAuthority("ROLE_ADMIN"));
+                break;
+        }
+
+        this.userRepository.save(this.modelMapper.map(user, User.class));
+    }
+
+    @Override
+    public UserServiceModel findByUsername(String username) {
+        return this.modelMapper.map(this.userRepository.findByUsername(username), UserServiceModel.class);
     }
 }

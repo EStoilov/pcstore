@@ -1,26 +1,13 @@
-package com.softuni.pcstore.domain.models.service;
+package com.softuni.pcstore.domain.models.views;
 
 import java.time.LocalDateTime;
-public class LogServiceModel {
-    
-    private String id;
+public class LogAllViewModel {
+
     private String user;
     private String event;
     private LocalDateTime dateTime;
 
-    public LogServiceModel() {
-    }
-
-    public LogServiceModel(String event) {
-        this.event = event;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public LogAllViewModel() {
     }
 
     public String getUser() {
