@@ -75,8 +75,7 @@ public class CategoryController extends BaseController {
         return view("/category/all-categories", modelAndView);
     }
     
-    @GetMapping("/{name}")
-    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    @GetMapping("/{name}")  
     public ModelAndView findProductsCategory(@PathVariable String name, ModelAndView modelAndView){
         
         List<ProductInCategoryViewModel> products = this.categoryService.findProductByCategoryName(name)

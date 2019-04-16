@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <th:block th:include="~{fragments/user-navbar}"></th:block>
+    <hr class="pc-store hr-2"/>
+
+    <table class="table">
+        <thead>
+        <tr class="row mx-auto">
+
+            <th class="col-md-1 text-center">#</th>
+            <th class="col-md-1 text-center">City</th>
+            <th class="col-md-1 text-center">Street</th>
+            <th class="col-md-1 text-center">Number</th>
+            <th class="col-md-1 text-center">Postcode</th>
+            <th class="col-md-3 text-center">Phone Number</th>
+            <th class="col-md-3 text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="address, iter : ${addresses}">
+            <tr class="row mx-auto">
+                <th class="col-md-1 text-center" th:text="${iter.index + 1}"></th>
+                <td class="col-md-1 text-center" th:text="${address.city}"></td>
+                <td class="col-md-1 text-center" th:text="${address.street}"></td>
+                <td class="col-md-1 text-center" th:text="${address.number}"></td>
+                <td class="col-md-1 text-center" th:text="${address.postCode}"></td>
+                <td class="col-md-3 text-center" th:text="${address.phoneNumber}"></td>
+                <td class="col-md-3 text-center">
+                    <a th:href="@{/addresses/delete/{id}(id=${address.id})}" class="btn btn-secondary font-weight-bold text-white">Delete</a>
+                    <a th:href="@{/addresses/edit/{id}(id=${address.id})}" class="btn btn-success font-weight-bold text-white">Edit</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+    <hr class="pc-store hr-2"/>
+</div>
+
+<th:block th:include="~{fragments/footer}"></th:block>
+</body>
+</html>

@@ -39,5 +39,18 @@ public final class Constants {
     public static final String EXCEPTION_PRODUCT_PRICE_NOT_NULL  = "Product price cannot be null!";
     public static final String EXCEPTION_PRODUCT_IMAGE_NOT_NULL = "Product image cannot be bull!";
     
+    //Add address binding model message
+    public static final String EXCEPTION_CITY_NOT_NULL = "City cannot be null!";
+    public static final String EXCEPTION_CITY_NOT_EMPTY = "City cannot be empty!";
+    public static final String EXCEPTION_STREET_NOT_NULL = "Street cannot be null!";
+    public static final String EXCEPTION_STREET_NOT_EMPTY = "Street cannot be empty!";
+    public static final String EXCEPTION_NUMBER_NOT_NULL = "Number cannot be null!";
+    public static final String EXCEPTION_NUMBER_NOT_EMPTY = "Number cannot be empty!";
+    public static final String EXCEPTION_POSTCODE_NOT_NULL = "Postcode cannot be null!";
+    public static final String EXCEPTION_POSTCODE_NOT_EMPTY = "Postcode cannot be empty!";
+    public static final String EXCEPTION_PHONE_NUMBER_NOT_NULL = "Phone number cannot be null!";
+    public static final String EXCEPTION_PHONE_NUMBER_NOT_EMPTY = "Phone number cannot be empty!";
+
     public static final String URL_FAVICON = "http://decorous.net/wp-content/uploads/2016/01/cropped-favico.png";
+    
 }

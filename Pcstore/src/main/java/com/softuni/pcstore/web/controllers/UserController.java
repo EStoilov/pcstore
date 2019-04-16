@@ -3,6 +3,7 @@ package com.softuni.pcstore.web.controllers;
 import com.softuni.pcstore.domain.models.binding.UserRegisterBindingModel;
 import com.softuni.pcstore.domain.models.service.UserServiceModel;
 import com.softuni.pcstore.domain.models.views.UserAllViewModel;
+import com.softuni.pcstore.domain.models.views.UserProfileViewModel;
 import com.softuni.pcstore.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -104,5 +106,15 @@ public class UserController extends  BaseController{
         this.userService.setUserRole(id, "admin");
 
         return redirect("/users/all");
+    }
+    
+    @GetMapping("/profile")
+    public ModelAndView userProfile(ModelAndView modelAndView, Principal principal){
+        String username = principal.getName();
+        UserProfileViewModel userProfileViewModel = this.modelMapper
+                .map(this.userService.findByUsername(username), UserProfileViewModel.class);
+        modelAndView.addObject("user", userProfileViewModel);
+        
+        return view("user/my-profile", modelAndView); 
     }
 }

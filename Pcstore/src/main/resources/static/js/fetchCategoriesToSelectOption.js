@@ -6,5 +6,5 @@
                 $('#add-product-categories')
                     .append(`<option value="${category.id}">${category.name}</option>`));
         })
-        .catch((err) => console.log(err)); 
+        .catch((err) => console.log(err));
 })();

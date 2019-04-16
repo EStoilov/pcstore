@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <th:block th:include="~{fragments/user-navbar}"></th:block>
+    <form id="add-product-form" class="form w-50 mx-auto" th:action="@{/users/profile}" method="post"
+          enctype="multipart/form-data" th:object="${user}">
+        <div class="form-group">
+            <label for="user-profile-username" class="font-weight-bold">Username</label>
+            <input type="text" class="form-control text-center" id="user-profile-username" th:value="${user.username}" name="username" readonly >
+        </div>
+
+        <div class="form-group">
+            <label for="user-profile-email" class="font-weight-bold">Email</label>
+            <input type="text" class="form-control text-center" id="user-profile-email" th:value="${user.email}" name="username" readonly>
+        </div>
+        
+        <div class="form-group">
+            <label for="user-addresses" class="font-weight-bold">Addresses</label>
+            <select value="disabled" multiple="" class="form-control" id="user-addresses" name="addresses">
+                <option selected="" disabled="">--- My Addresses ---</option>
+            </select>
+        </div>
+        <hr class="hr-2 bg-dark w-25">
+        <a th:href="@{/addresses/all/{username}(username=${user.username})}" class="btn btn-secondary font-weight-bold text-white">My Addresses</a>
+        <a type="button"th:href="@{/addresses/add}" class="btn btn-secondary font-weight-bold text-white">Add Addresses</a>
+        <a type="button" th:href="@{/orders/my/{username}(username=${user.username})}" class="btn btn-secondary font-weight-bold text-white">My Orders</a>
+    </form>
+
+    <hr class="pc-store hr-2"/>
+</div>
+
+<th:block th:include="~{fragments/footer}"></th:block>
+</body>
+<script src="/js/fetchAddresses.js"></script>
+</html>
