@@ -2,11 +2,20 @@ package com.softuni.pcstore.domain.models.views;
 
 public class AddressViewModel {
 
+    private String id;
     private String city;
     private String street;
     private String number;
 
     public AddressViewModel() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCity() {

@@ -47,7 +47,7 @@
     <div class="text-center">
         <h3 th:text="|Total: ${#session.getAttribute('total-sum')}|"></h3>
     </div>
-    <form th:action="@{/order/details}" th:method="post">
+    <form th:action="@{/order/details}">
         <div class="button-holder d-flex justify-content-center">
             <button type="submit" class="btn btn-success">Order</button>
         </div>

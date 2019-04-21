@@ -6,4 +6,6 @@ import javax.servlet.http.HttpSession;
 
 public interface OrderService {
     OrderServiceModel createOrder(HttpSession session, String userName);
+    
+    OrderServiceModel createOrderConfirm(HttpSession session, String username, String addressId);
 }
