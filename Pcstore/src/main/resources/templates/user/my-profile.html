@@ -8,7 +8,7 @@
 
 <div class="container-fluid">
     <th:block th:include="~{fragments/user-navbar}"></th:block>
-    <form id="add-product-form" class="form w-50 mx-auto" th:action="@{/users/profile}" method="post"
+    <form id="add-user-form" class="form w-50 mx-auto" th:action="@{/users/profile}" method="post"
           enctype="multipart/form-data" th:object="${user}">
         <div class="form-group">
             <label for="user-profile-username" class="font-weight-bold">Username</label>

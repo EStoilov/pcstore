@@ -11,14 +11,14 @@
     <hr class="pc-store hr-2"/>
     <h1 class="text-center text-dark">Delete Category</h1>
     <hr class="hr-2 bg-dark w-25">
-    <form id="edit-category-form" class="form w-25 mx-auto" th:action="@{/categories/delete/{id}(id=${model.id})}" method="post">
+    <form id="delete-category-form" class="form w-25 mx-auto" th:action="@{/categories/delete/{id}(id=${model.id})}" method="post">
         <div class="form-group">
-            <label for="edit-category-name" class="font-weight-bold">Name</label>
-            <input type="text" class="form-control text-center" id="edit-category-name" name="name" th:value="${model.name}" readonly>
+            <label for="delete-category-name" class="font-weight-bold">Name</label>
+            <input type="text" class="form-control text-center" id="delete-category-name" name="name" th:value="${model.name}" readonly>
         </div>
         <div class="form-group">
-            <label for="edit-category-description" class="font-weight-bold">Description</label>
-            <textarea type="text" class="form-control text-center" id="edit-category-description" name="description" th:value="${model.description}" th:text="${model.description}" readonly></textarea>
+            <label for="delete-category-description" class="font-weight-bold">Description</label>
+            <textarea type="text" class="form-control text-center" id="delete-category-description" name="description" th:value="${model.description}" th:text="${model.description}" readonly></textarea>
         </div>
         <hr class="hr-2 bg-dark">
         <div class="button-holder d-flex justify-content-center">

@@ -12,19 +12,19 @@
 
     <h1 class="text-center text-dark">Delete Product</h1>
     <hr class="hr-2 bg-dark w-25">
-    <form id="add-product-form" class="form w-25 mx-auto" th:action="@{/products/delete/{id}(id=${product.id})}" method="post" enctype="multipart/form-data">
+    <form id="delete-product-form" class="form w-25 mx-auto" th:action="@{/products/delete/{id}(id=${product.id})}" method="post" enctype="multipart/form-data">
 
         <div class="form-group">
-            <label for="add-product-name" class="font-weight-bold">Name</label>
-            <input type="text" class="form-control text-center" id="add-product-name" name="name" th:value="${product.name}" disabled>
+            <label for="delete-product-name" class="font-weight-bold">Name</label>
+            <input type="text" class="form-control text-center" id="delete-product-name" name="name" th:value="${product.name}" disabled>
         </div>
         <div class="form-group">
-            <label for="add-product-description" class="font-weight-bold">Description</label>
-            <textarea name="description" id="add-product-description" cols="41" rows="5" th:text="${product.description}" disabled></textarea>
+            <label for="delete-product-description" class="font-weight-bold">Description</label>
+            <textarea name="description" id="delete-product-description" cols="41" rows="5" th:text="${product.description}" disabled></textarea>
         </div>
         <div class="form-group">
-            <label for="add-product-price" class="font-weight-bold">Price</label>
-            <input type="number" step="any" class="form-control text-center" id="add-product-price" name="price" th:value="${product.price}" disabled="">
+            <label for="delete-product-price" class="font-weight-bold">Price</label>
+            <input type="number" step="any" class="form-control text-center" id="delete-product-price" name="price" th:value="${product.price}" disabled="">
         </div>
         <hr class="hr-2 bg-dark w-25">
         <div class="button-holder d-flex justify-content-center">
@@ -37,5 +37,4 @@
 
 <th:block th:include="~{fragments/footer}"></th:block>
 </body>
-<script src="/js/fetchCategoriesToSelectOption.js"></script>
 </html>

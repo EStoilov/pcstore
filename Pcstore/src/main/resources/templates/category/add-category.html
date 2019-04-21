@@ -21,13 +21,13 @@
                 <small th:each="error : ${#fields.errors('name')}" th:text="${error}"></small>
             </div>
             <div class="form-group">
-                <label for="add-product-description" class="font-weight-bold">Description</label>
-                <textarea name="description" id="add-product-description" cols="41" rows="5"></textarea>
+                <label for="add-category-description" class="font-weight-bold">Description</label>
+                <textarea name="description" id="add-category-description" cols="41" rows="5"></textarea>
                 <small th:each="error : ${#fields.errors('description')}" th:text="${error}"></small>
             </div>
             <div class="form-group">
-                <label for="add-product-image" class="font-weight-bold">Image</label>
-                <input type="file" class="form-control-file" id="add-product-image" name="image">
+                <label for="add-category-image" class="font-weight-bold">Image</label>
+                <input type="file" class="form-control-file" id="add-category-image" name="image">
                 <small th:each="error : ${#fields.errors('image')}" th:text="${error}"></small>
             </div>
             <hr class="hr-2 bg-dark">

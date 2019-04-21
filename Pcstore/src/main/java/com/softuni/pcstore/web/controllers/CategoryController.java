@@ -93,10 +93,12 @@ public class CategoryController extends BaseController {
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
     @ResponseBody
     public List<CategoryViewModel> fetchCategories() {
-        return this.categoryService.findAllCategories()
+        List<CategoryViewModel> categories = categoryService.findAllCategories()
                 .stream()
                 .map(c -> this.modelMapper.map(c, CategoryViewModel.class))
                 .collect(Collectors.toList());
+        
+        return categories;
     }
 
     @GetMapping("/edit/{id}")

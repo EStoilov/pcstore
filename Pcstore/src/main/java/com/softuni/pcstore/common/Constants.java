@@ -50,6 +50,10 @@ public final class Constants {
     public static final String EXCEPTION_POSTCODE_NOT_EMPTY = "Postcode cannot be empty!";
     public static final String EXCEPTION_PHONE_NUMBER_NOT_NULL = "Phone number cannot be null!";
     public static final String EXCEPTION_PHONE_NUMBER_NOT_EMPTY = "Phone number cannot be empty!";
+    
+    //Cart Service HttpSession set attributes
+    public static final String SET_ATTRIBUTE_SESSION_TOTAL_SUM = "total-sum";
+    public static final String SET_ATTRIBUTE_SESSION_SHOPPING_CART = "shopping-cart";
 
     public static final String URL_FAVICON = "http://decorous.net/wp-content/uploads/2016/01/cropped-favico.png";
     

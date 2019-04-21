@@ -32,9 +32,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col col-md-12 mt-5">
-                <a  th:href="@{/order/product/{id}(id=${product.id})}" class="btn btn-success">Buy</a>
-            </div>
+            <form class="form w-25 mx-auto" th:action="@{/cart/my/{id}(id=${product.id})}" th:method="post">
+                
+                <button type="submit" class="btn btn-success">Order Product</button>
+            </form>
         </div>
     </div>
 
@@ -43,5 +44,4 @@
 
 <th:block th:include="~{fragments/footer}"></th:block>
 </body>
-<script src="/js/fetchCategoriesToSelectOption.js"></script>
 </html>

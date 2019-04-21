@@ -12,28 +12,28 @@
 
     <h1 class="text-center text-dark">Delete Address</h1>
     <hr class="hr-2 bg-dark w-25">
-    <form id="add-product-form" class="form w-25 mx-auto" th:action="@{/addresses/delete/{id}(id=${model.id})}" method="post"
+    <form id="delete-address-form" class="form w-25 mx-auto" th:action="@{/addresses/delete/{id}(id=${model.id})}" method="post"
           enctype="multipart/form-data">
 
         <div class="form-group">
-            <label for="add-address-city" class="font-weight-bold">City</label>
-            <input type="text" class="form-control text-center" id="add-address-city" name="city" th:value="${model.city}" readonly>
+            <label for="delete-address-city" class="font-weight-bold">City</label>
+            <input type="text" class="form-control text-center" id="delete-address-city" name="city" th:value="${model.city}" readonly>
         </div>
         <div class="form-group">
-            <label for="add-address-street" class="font-weight-bold">Street</label>
-            <input type="text" class="form-control text-center" id="add-address-street" name="street" th:value="${model.street}" readonly>
+            <label for="delete-address-street" class="font-weight-bold">Street</label>
+            <input type="text" class="form-control text-center" id="delete-address-street" name="street" th:value="${model.street}" readonly>
         </div>
         <div class="form-group">
-            <label for="add-address-number" class="font-weight-bold">Number</label>
-            <input type="text" class="form-control text-center" id="add-address-number" name="number" th:value="${model.number}" readonly>
+            <label for="delete-address-number" class="font-weight-bold">Number</label>
+            <input type="text" class="form-control text-center" id="delete-address-number" name="number" th:value="${model.number}" readonly>
         </div>
         <div class="form-group">
-            <label for="add-address-postCode" class="font-weight-bold">Post Code</label>
-            <input type="text" class="form-control text-center" id="add-address-postCode" name="postCode" th:value="${model.postCode}" readonly>
+            <label for="delete-address-postCode" class="font-weight-bold">Post Code</label>
+            <input type="text" class="form-control text-center" id="delete-address-postCode" name="postCode" th:value="${model.postCode}" readonly>
         </div>
         <div class="form-group">
-            <label for="add-address-phoneNumber" class="font-weight-bold">Phone Number</label>
-            <input type="text" class="form-control text-center" id="add-address-phoneNumber" name="phoneNumber" th:value="${model.phoneNumber}" readonly>
+            <label for="delete-address-phoneNumber" class="font-weight-bold">Phone Number</label>
+            <input type="text" class="form-control text-center" id="delete-address-phoneNumber" name="phoneNumber" th:value="${model.phoneNumber}" readonly>
         </div>
 
         <hr class="hr-2 bg-dark w-25">
@@ -47,5 +47,4 @@
 
 <th:block th:include="~{fragments/footer}"></th:block>
 </body>
-<script src="/js/fetchCategoriesToSelectOption.js"></script>
 </html>
