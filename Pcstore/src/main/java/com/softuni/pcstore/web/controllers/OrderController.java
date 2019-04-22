@@ -57,14 +57,19 @@ public class OrderController extends BaseController{
     }
       
     @GetMapping("/my/{username}")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView findMyOrders(ModelAndView modelAndView, 
                                      @PathVariable String username){
         List<OrderAllViewModel> orders = this.orderService.findAllMyOrders(username)
                 .stream()
                 .map(o -> {
                     OrderAllViewModel orderAllViewModel = this.modelMapper.map(o, OrderAllViewModel.class);
-                    List<String> products = o.getProducts().stream().map(p -> p.getName()).collect(Collectors.toList());
+                    List<String> products = o.getProducts().stream()
+                            .map(p -> p.getName()).collect(Collectors.toList());
                     orderAllViewModel.setProducts(products);
+                    String address = String.format("%s %s %s", o.getAddress().getCity(), o.getAddress().getStreet(), o.getAddress().getNumber());
+                    orderAllViewModel.setAddress(address);
+                    
                     return orderAllViewModel;
                 })
                 .collect(Collectors.toList());

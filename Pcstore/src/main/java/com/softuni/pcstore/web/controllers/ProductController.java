@@ -95,7 +95,7 @@ public class ProductController extends BaseController {
     }
 
     @GetMapping("/details/{id}")
-    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView details(@PathVariable String id, ModelAndView modelAndView){
         ProductDetailsViewModel detailsProduct = this.modelMapper.map(
                 this.productService.findProductById(id), ProductDetailsViewModel.class);
