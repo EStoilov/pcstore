@@ -2,6 +2,7 @@ package com.softuni.pcstore.web.controllers;
 
 import com.softuni.pcstore.domain.models.service.OrderServiceModel;
 import com.softuni.pcstore.domain.models.service.ProductServiceModel;
+import com.softuni.pcstore.domain.models.views.OrderAllViewModel;
 import com.softuni.pcstore.domain.models.views.OrderViewModel;
 import com.softuni.pcstore.service.OrderService;
 import org.modelmapper.ModelMapper;
@@ -15,6 +16,7 @@ import javax.persistence.Persistence;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/order")
@@ -53,5 +55,20 @@ public class OrderController extends BaseController{
         
         return redirect("/home");
     }
-                                
+      
+    @GetMapping("/my/{username}")
+    public ModelAndView findMyOrders(ModelAndView modelAndView, 
+                                     @PathVariable String username){
+        List<OrderAllViewModel> orders = this.orderService.findAllMyOrders(username)
+                .stream()
+                .map(o -> {
+                    OrderAllViewModel orderAllViewModel = this.modelMapper.map(o, OrderAllViewModel.class);
+                    List<String> products = o.getProducts().stream().map(p -> p.getName()).collect(Collectors.toList());
+                    orderAllViewModel.setProducts(products);
+                    return orderAllViewModel;
+                })
+                .collect(Collectors.toList());
+        modelAndView.addObject("orders", orders);
+        return view("order/all-orders", modelAndView);
+    }
 }

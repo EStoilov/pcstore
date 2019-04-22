@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 public class OrderServiceModel {
-
+    
+    private String id;
     private UserServiceModel user;
     private AddressServiceModel address;
     private BigDecimal totalPrice;
@@ -13,6 +14,14 @@ public class OrderServiceModel {
     private List<ProductServiceModel> products;
 
     public OrderServiceModel() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public UserServiceModel getUser() {

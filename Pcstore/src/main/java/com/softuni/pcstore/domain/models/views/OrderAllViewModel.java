@@ -3,16 +3,16 @@ package com.softuni.pcstore.domain.models.views;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-public class OrderViewModel {
+public class OrderAllViewModel {
     
     private String id;
     private String address;
     private BigDecimal totalPrice;
     private LocalDateTime sendDate;
     private boolean isDelivered;
-    private List<ProductOrderViewModel> products;
+    private List<String> products;
 
-    public OrderViewModel() {
+    public OrderAllViewModel() {
     }
 
     public String getId() {
@@ -55,11 +55,11 @@ public class OrderViewModel {
         isDelivered = delivered;
     }
 
-    public List<ProductOrderViewModel> getProducts() {
+    public List<String> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductOrderViewModel> products) {
+    public void setProducts(List<String> products) {
         this.products = products;
     }
 }

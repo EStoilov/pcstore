@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <th:block th:include="~{fragments/user-navbar}"></th:block>
+
+    <h1 class="text-center text-dark">My Orders</h1>
+    <hr class="hr-2 bg-dark w-75">
+    <table class="table table-hover w-75 mx-auto">
+        <thead>
+        <tr class="row mx-auto">
+            <th class="col-md-1 text-center">#</th>
+            <th class="col-md-3 text-center">Address</th>
+            <th class="col-md-3 text-center">Date</th>
+            <th class="col-md-2 text-center">Total Price</th>
+            <th class="col-md-2 text-center">Products</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="order, iter : ${orders}" th:object="${order}">
+            <tr class="row mx-auto">
+                <th class="col-md-1 text-center" th:text="${iter.index + 1}"></th>
+                <td class="col-md-3 text-center" th:text="*{address.city}"></td>
+                <td class="col-md-3 text-center" th:text="*{#temporals.format(sendDate, 'dd-MM-yyyy HH:mm') }"></td>
+                <td class="col-md-2 text-center" th:text="*{totalPrice}"></td>
+                <td class="col-md-2 text-center" th:text="${#strings.listJoin(order.products, ', ')}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <hr class="hr-2 bg-dark">
+
+
+
+    <hr class="pc-store hr-2"/>
+</div>
+
+<th:block th:include="~{fragments/footer}"></th:block>
+</body>
+<script src="/js/fetchAddresses.js"></script>
+</html>

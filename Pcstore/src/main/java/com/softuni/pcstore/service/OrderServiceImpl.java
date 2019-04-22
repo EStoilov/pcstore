@@ -69,6 +69,17 @@ public class OrderServiceImpl implements OrderService {
         return orderServiceModel;
     }
 
+    @Override
+    public List<OrderServiceModel> findAllMyOrders(String username) {
+        List<OrderServiceModel> orders = this.orderRepository
+                .findAllOrdersByUser(username)
+                .stream()
+                .map(o-> this.modelMapper.map(o, OrderServiceModel.class))
+                .collect(Collectors.toList());
+        
+        return orders;
+    }
+
     private BigDecimal calcTotalPrice(List<ProductCartViewModel> productServiceModels) {
         BigDecimal result = new BigDecimal(0);
         for (ProductCartViewModel productCartViewModel : productServiceModels) {
