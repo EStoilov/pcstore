@@ -32,10 +32,10 @@ public class GlobalExceptionHandler extends BaseController {
     }
 
 
-    @ExceptionHandler({IllegalArgumentException.class})
-    public ModelAndView handleIllegalArgumentExceptions(RuntimeException e){
-        ModelAndView modelAndView = new ModelAndView("/errors/error");
-        modelAndView.addObject("myMessage", e.getMessage());
-        return modelAndView;
-    }
+//    @ExceptionHandler({IllegalArgumentException.class})
+//    public ModelAndView handleIllegalArgumentExceptions(RuntimeException e){
+//        ModelAndView modelAndView = new ModelAndView("/errors/error");
+//        modelAndView.addObject("myMessage", e.getMessage());
+//        return modelAndView;
+//    }
 }

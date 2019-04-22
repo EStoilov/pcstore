@@ -15,15 +15,31 @@
         </h3>
     </div>
 
-    <div class="row mb-4 index-container">
-        <th:block th:each="category: ${categories}" >
-            <div class="print-scheduled pc-store rounded">
-                <h5 class="text-center text-white font-weight-bold py-3 mt-3" th:text="${category.name}"></h5>
-                <hr class="bg-white">
-                <button type="button"  class="btn btn-primary d-flex justify-content-center active" data-toggle="modal"
-                        th:href="@{/categories/{name}(name=${category.name})}" th:text="|Go to ${category.name}"|></button>
-            </div>
-        </th:block>
+    <div class="row index-container">
+        <table class="table table-hover ">
+            <thead>
+            <tr class="row mx-auto">
+                <th class="col-md-1 text-center">#</th>
+                <th class="col-md-1 text-center">Image</th>
+                <th class="col-md-3 text-center">Name</th>
+                <th class="col-md-2 text-center">Price</th>
+                <th class="col-md-3 text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="product, iter : ${products}">
+                <tr class="row mx-auto">
+                    <th class="col-md-1 text-center" th:text="${iter.index + 1}"></th>
+                    <td class="col-md-1"><div class="text-center"><img th:src="${product.image}" width="40" height="40" alt="Product"></div></td>
+                    <td class="col-md-3 text-center" th:text="${product.name}"></td>
+                    <td class="col-md-2 text-center" th:text="${product.price}"></td>
+                    <td class="col-md-3 text-center">
+                        <a th:href="@{/products/details/{id}(id=${product.id})}" class="btn btn-secondary font-weight-bold text-white">Details</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
 
     </div>
 

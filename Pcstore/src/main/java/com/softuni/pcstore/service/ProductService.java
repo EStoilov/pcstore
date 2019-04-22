@@ -14,5 +14,7 @@ public interface ProductService {
     ProductServiceModel editProduct(String id, ProductServiceModel productServiceModel, List<String> categories);
     
     void deleteProduct(String id);
+    
+    List<ProductServiceModel> getRandomProducts();
             
 }

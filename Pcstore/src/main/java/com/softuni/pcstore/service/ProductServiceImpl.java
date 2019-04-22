@@ -8,9 +8,12 @@ import com.softuni.pcstore.repository.CategoryRepository;
 import com.softuni.pcstore.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,5 +81,29 @@ public class ProductServiceImpl implements ProductService {
         Product product = this.productRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException(Constants.EXCEPTION_NOT_FOUND));
         this.productRepository.delete(product);               
+    }
+    
+    @Override
+    public List<ProductServiceModel> getRandomProducts() {
+        List<ProductServiceModel> productServiceModels = this.productRepository.findAll()
+                .stream().map(p -> this.modelMapper.map(p, ProductServiceModel.class))
+                .collect(Collectors.toList());
+        
+        List<ProductServiceModel> randomProducts = new ArrayList<>();
+        
+        int firstRandomIndex = this.getRandomNumber(0, productServiceModels.size()-1);
+        int secRandomIndex = this.getRandomNumber(0, productServiceModels.size()-1);
+        int thirdRandomIndex = this.getRandomNumber(0, productServiceModels.size()-1);
+        
+        randomProducts.add(productServiceModels.get(firstRandomIndex));
+        randomProducts.add(productServiceModels.get(secRandomIndex));
+        randomProducts.add(productServiceModels.get(thirdRandomIndex));
+        
+        return randomProducts;
+    }
+
+    private int getRandomNumber(int min, int max){
+        Random random = new Random();
+        return random.nextInt((max - min) + 1) + min;
     }
 }
