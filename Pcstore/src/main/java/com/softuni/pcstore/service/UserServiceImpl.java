@@ -3,6 +3,7 @@ package com.softuni.pcstore.service;
 import com.softuni.pcstore.common.Constants;
 import com.softuni.pcstore.domain.entities.User;
 import com.softuni.pcstore.domain.models.service.UserServiceModel;
+import com.softuni.pcstore.repository.RoleRepository;
 import com.softuni.pcstore.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
